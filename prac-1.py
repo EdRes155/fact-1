@@ -30,14 +30,15 @@ def main():
 
     now = datetime.now()
     text = 'Direccion'
+    m = Decimal(3)
 
     #Agregar informacion
     layout.add(
         FixedColumnWidthTable(number_of_columns=3, number_of_rows=4, column_widths=[Decimal(1), Decimal(2), Decimal(1)])
-        .add(TableCell(Paragraph('%d' % random.randint(700000000,700100000), font='Helvetica-bold', font_size=Decimal(16), horizontal_alignment=Alignment.CENTERED)))
+        .add(TableCell(Paragraph('%d' % random.randint(700000000,700100000), font='Helvetica-bold', font_size=Decimal(16), horizontal_alignment=Alignment.CENTERED, padding_bottom=m, padding_left=m, padding_right=m, padding_top=m)))
         .add(TableCell(Paragraph('Remision de Factura', font='Helvetica-bold', font_size=Decimal(16), horizontal_alignment=Alignment.CENTERED, padding_top=Decimal(0.02)), col_span=2, background_color=HexColor('9D9D9D')))
         .add(TableCell(Image(
-            Path('G:\Otros ordenadores\Mi PC (1)\fac-1\prueba.pdf'),
+            Path('C:/Users/resen/Documents/fac-1/Sin-fondo.png'),
             width=Decimal(128),
             height=Decimal(48),
             horizontal_alignment=Alignment.CENTERED,
