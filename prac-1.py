@@ -1,6 +1,4 @@
 from pathlib import Path
-from subprocess import HIGH_PRIORITY_CLASS
-from this import d
 from borb.pdf.document.document import Document
 from borb.pdf.page.page import Page
 from borb.pdf.canvas.layout.page_layout.multi_column_layout import SingleColumnLayout, MultiColumnLayout
@@ -11,14 +9,12 @@ from borb.pdf.canvas.layout.table.fixed_column_width_table import FixedColumnWid
 from borb.pdf.canvas.layout.table.flexible_column_width_table import (FlexibleColumnWidthTable,)
 from borb.pdf.canvas.layout.table.table import TableCell
 from borb.pdf.canvas.layout.image.image import Image
+from borb.pdf.canvas.geometry.line_segment import LineSegment
 from borb.pdf.canvas.color.color import HexColor, X11Color
 from borb.pdf.pdf import PDF
 from decimal import Decimal
 from datetime import datetime
 import random
-
-from bs4 import PageElement
-from sqlalchemy import false
 
 def main():
     #Crear documento
@@ -56,7 +52,7 @@ def main():
             padding_bottom=n,
             ), col_span=2, background_color=HexColor('9D9D9D')))
         .add(TableCell(Image(
-            Path('C:/Users/resen/Documents/fac-1/Sin-fondo.png'),
+            Path('Sin-fondo.png'),
             width=Decimal(128),
             height=Decimal(48),
             horizontal_alignment=Alignment.CENTERED,
@@ -627,7 +623,25 @@ def main():
     )
 
     layout.add(
-        FixedColumnWidthTable(number_of_columns=2, number_of_rows=3, column_widths=(Decimal(3), Decimal(1)))
+        FixedColumnWidthTable(number_of_columns=5, number_of_rows=3, column_widths=(Decimal(0.8), Decimal(2), Decimal(0.8), Decimal(0.8), Decimal(0.8)))
+        .add(TableCell(Paragraph(
+            'Banco',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED,
+        ), background_color=X11Color('LightGray')))
+        .add(TableCell(Paragraph(
+            'Numero de Cuenta',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('LightGray')))
+        .add(TableCell(Paragraph(
+            'Referencia',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('LightGray')))
         .add(Paragraph(
             'Subtotal:',
             font='Helvetica-bold',
@@ -642,6 +656,24 @@ def main():
             padding_bottom=Decimal(2.5),
             horizontal_alignment=Alignment.RIGHT
         ))
+        .add(TableCell(Paragraph(
+            'Santander',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('White')))
+        .add(TableCell(Paragraph(
+            '892376438',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('White')))
+        .add(TableCell(Paragraph(
+            'Factura',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('White')))
         .add(Paragraph(
             'Anticipo:',
             font='Helvetica-bold',
@@ -656,6 +688,24 @@ def main():
             padding_bottom=Decimal(2.5),
             horizontal_alignment=Alignment.RIGHT
         ))
+        .add(TableCell(Paragraph(
+            'Otros Bancos',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('LightGray')))
+        .add(TableCell(Paragraph(
+            '242342358723562187',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('LightGray')))
+        .add(TableCell(Paragraph(
+            'Factura',
+            font='Helvetica-bold',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), background_color=X11Color('LightGray')))
         .add(Paragraph(
             'Total:',
             font='Helvetica-bold',
@@ -669,6 +719,61 @@ def main():
             font_size=tam,
             padding_bottom=Decimal(2.5),
             horizontal_alignment=Alignment.RIGHT
+        ))
+        .set_padding_on_all_cells(Decimal(1), Decimal(1), Decimal(1), Decimal(1))
+        .no_borders()   
+    )
+
+    layout.add(
+        FixedColumnWidthTable(number_of_columns=1, number_of_rows=2, border_bottom=True, border_left=True, border_right=True, border_top=True)
+        .add(Paragraph(
+            'Observaciones:',
+            font='Helvetica',
+            font_size=tam,
+        ))
+        .add(Paragraph(
+            ' ',
+            font='Helvetica',
+            font_size=40,
+        ))
+        .set_padding_on_all_cells(Decimal(1), Decimal(1), Decimal(1), Decimal(1))
+        .no_borders()
+    )
+
+    layout.add(
+        FixedColumnWidthTable(number_of_columns=3, number_of_rows=3, column_widths=(Decimal(1), Decimal(3), Decimal(1)))
+        .add(TableCell(Paragraph(
+            'No se aceptan reclamaciones posteriores a la firma de este documento, verificar que su mercancia la recibio completa y en buen estado.',
+            font='Helvetica',
+            font_size=tam,
+            horizontal_alignment=Alignment.CENTERED
+        ), col_span=3))
+        .add(Paragraph(
+            ' ',
+            font_size=Decimal(20),
+        ))
+        .add(Paragraph(
+            ' ',
+            font_size=Decimal(20),
+            border_bottom=True
+        ))
+        .add(Paragraph(
+            ' ',
+            font_size=Decimal(20),
+        ))
+        .add(Paragraph(
+            ' ',
+            font_size=tam,
+        ))
+        .add(Paragraph(
+            'Firma del Cliente',
+            font_size=tam,
+            border_top=True,
+            horizontal_alignment=Alignment.CENTERED
+        ))
+        .add(Paragraph(
+            ' ',
+            font_size=tam,
         ))
         .set_padding_on_all_cells(Decimal(1), Decimal(1), Decimal(1), Decimal(1))
         .no_borders()
